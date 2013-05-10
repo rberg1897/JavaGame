@@ -1,63 +1,33 @@
 package com.redomar.game.entities;
 
-import com.redomar.game.InputHandler;
 import com.redomar.game.gfx.Colours;
 import com.redomar.game.gfx.Screen;
 import com.redomar.game.level.LevelHandler;
 
-public class Player extends Mob {
-
-	private InputHandler input;
-	private int colour = Colours.get(-1, 111, 240, 310);
+public class Zombie extends Mob{
+	
+	private int colour = Colours.get(-1, 111, 035, 141);
 	private int tickCount = 0;
 
-	public Player(LevelHandler level, int x, int y, InputHandler input) {
-		super(level, "Player", x, y, 1);
-		this.input = input;
+	public Zombie(LevelHandler level, int x, int y, int speed) {
+		super(level, "Zombie", x, y, 1);
+
 	}
 
+
+	@Override
 	public void tick() {
-		int xa = 0;
-		int ya = 0;
-
-		if (input.up.isPressed()) {
-			ya--;
-		}
-		if (input.down.isPressed()) {
-			ya++;
-		}
-		if (input.left.isPressed()) {
-			xa--;
-		}
-		if (input.right.isPressed()) {
-			xa++;
-		}
-
-		if (xa != 0 || ya != 0) {
-			move(xa, ya);
-			isMoving = true;
-		} else {
-			isMoving = false;
-		}
-		
-		if (level.getTile(this.x >> 3, this.y >> 3).getId() == 4) {
-			isSwimming = true;
-		}
-
-		if (isSwimming && level.getTile(this.x >> 3, this.y >> 3).getId() != 4) {
-			isSwimming = false;
-		}
-		
 		tickCount++;
+		
 	}
 
 	public void render(Screen screen) {
 		int xTile = 0;
-		int yTile = 28;
-		int walkingSpeed = 4;
+		int yTile = 26;
+		int walkingSpeed = 3;
 		int flipTop = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
-
+		
 		if (movingDir == 1) {
 			xTile += 2;
 		} else if (movingDir > 1) {
@@ -68,25 +38,25 @@ public class Player extends Mob {
 		int modifier = 8 * scale;
 		int xOffset = x - modifier / 2;
 		int yOffset = y - modifier / 2 - 4;
-		playerPositionXA = xOffset;
-		playerPositionYA = yOffset;
+		zombiePositionXA = xOffset;
+		zombiePositionYA = yOffset;
 		
 		if(isSwimming){
 			int waterColour = 0;
-			yOffset += 4;
-			playerPositionYA +=4;
+			yOffset += 40;
+			zombiePositionYA +=4;
 			
 			if (tickCount % 60 < 15) {
 				waterColour = Colours.get(-1, -1, 255, -1);
 			} else if (15 <= tickCount % 60 && tickCount % 60 < 30) {
 				yOffset--;
-				playerPositionYA--;
+				zombiePositionYA--;
 				waterColour = Colours.get(-1, 225, 115, -1);
 			} else if (30 <= tickCount % 60 && tickCount % 60 < 45) {
 				waterColour = Colours.get(-1, 115, -1, 225);
 			} else {
 				yOffset--;
-				playerPositionYA--;
+				zombiePositionYA--;
 				waterColour = Colours.get(-1, -1, 225, 115);
 			}
 			
@@ -100,8 +70,9 @@ public class Player extends Mob {
 			screen.render((xOffset + (modifier * flipBottom)), (yOffset + modifier), (xTile	+ (yTile + 1) * 32), colour, flipBottom, scale);
 			screen.render((xOffset + modifier - (modifier * flipBottom)), (yOffset + modifier), ((xTile + 1) + (yTile + 1) * 32), colour, flipBottom, scale);
 		}
+		
 	}
-
+	
 	public boolean hasCollided(int xa, int ya) {
 		int xMin = 0;
 		int xMax = 7;
@@ -131,7 +102,7 @@ public class Player extends Mob {
 				return true;
 			}
 		}
-
+		
 		return false;
 	}
 

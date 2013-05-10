@@ -11,6 +11,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import com.redomar.game.entities.Player;
+import com.redomar.game.entities.Zombie;
 import com.redomar.game.gfx.Screen;
 import com.redomar.game.gfx.SpriteSheet;
 import com.redomar.game.level.LevelHandler;
@@ -40,6 +41,7 @@ public class Game extends Canvas implements Runnable {
 	public InputHandler input;
 	public LevelHandler level;
 	public Player player;
+	public Zombie zombie;
 
 	public Game() {
 		setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -74,7 +76,9 @@ public class Game extends Canvas implements Runnable {
 		input = new InputHandler(this);
 		level = new LevelHandler("/levels/castle_level.png");
 		player = new Player(level, 0, 0, input);
+		zombie = new Zombie(level, 10*8, 10*8, 1);
 		level.addEntity(player);
+		level.addEntity(zombie);
 	}
 
 	public synchronized void start() {

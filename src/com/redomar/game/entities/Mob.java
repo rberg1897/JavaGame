@@ -1,5 +1,6 @@
 package com.redomar.game.entities;
 
+import com.redomar.game.gfx.Screen;
 import com.redomar.game.level.LevelHandler;
 import com.redomar.game.level.tiles.Tile;
 
@@ -12,6 +13,11 @@ public abstract class Mob extends Entity {
 	protected int movingDir = 1;
 	protected int scale = 1;
 	protected boolean isSwimming = false;
+	protected int playerPositionXA;
+	protected int playerPositionYA;
+	protected int zombiePositionXA;
+	protected int zombiePositionYA;
+	protected Screen screen;
 
 	public Mob(LevelHandler level, String name, int x, int y, int speed) {
 		super(level);
@@ -59,6 +65,10 @@ public abstract class Mob extends Entity {
 		Tile newtTile = level.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
 		
 		if(!lastTile.equals(newtTile) && newtTile.isSolid()){
+			return true;
+		}
+		
+		if(zombiePositionXA == playerPositionXA && zombiePositionYA == playerPositionYA){
 			return true;
 		}
 
