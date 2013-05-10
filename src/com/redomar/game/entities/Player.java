@@ -1,5 +1,6 @@
 package com.redomar.game.entities;
 
+import com.redomar.game.Game;
 import com.redomar.game.InputHandler;
 import com.redomar.game.gfx.Colours;
 import com.redomar.game.gfx.Screen;
@@ -48,6 +49,14 @@ public class Player extends Mob {
 			isSwimming = false;
 		}
 		
+		if (level.getTile(this.x >> 3, this.y >> 3).getId() == 5){
+			portalActive = true;
+		}
+		
+		if (level.getTile(this.x >> 3, this.y >> 3).getId() != 5){
+			portalActive = false;
+		}
+		
 		tickCount++;
 	}
 
@@ -68,6 +77,17 @@ public class Player extends Mob {
 		int modifier = 8 * scale;
 		int xOffset = x - modifier / 2;
 		int yOffset = y - modifier / 2 - 4;
+		
+		if(portalActive){
+			level = new LevelHandler("/levels/water_level.png");
+			Player player;
+			player = new Player(level, 30*8, 5*8, input);
+			level.addEntity(player);
+			int xOffset1 = player.x - (screen.width / 2);
+			int yOffset1 = player.y - (screen.height / 2);
+
+			level.renderTiles(screen, xOffset1, yOffset1);
+		}
 		
 		if(isSwimming){
 			int waterColour = 0;

@@ -40,6 +40,7 @@ public class Game extends Canvas implements Runnable {
 	public InputHandler input;
 	public LevelHandler level;
 	public Player player;
+	public boolean portalActive = false;
 
 	public Game() {
 		setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -72,8 +73,13 @@ public class Game extends Canvas implements Runnable {
 
 		screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/sprite_sheet.png"));
 		input = new InputHandler(this);
-		level = new LevelHandler("/levels/castle_level.png");
-		player = new Player(level, 30*8, 5*8, input);
+		if(portalActive == true){
+			level = new LevelHandler("/levels/water_level.png");
+			player = new Player(level, 30*8, 5*8, input);
+		} else {
+			level = new LevelHandler("/levels/castle_level.png");
+			player = new Player(level, 30*8, 5*8, input);
+		}
 		level.addEntity(player);
 	}
 

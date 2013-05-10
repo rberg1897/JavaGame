@@ -12,10 +12,12 @@ public abstract class Tile {
 	public static final Tile CHISELED_STONE = new BasicTile(2, 2, 0, Colours.get(-1, 333, 222, -1), 0xFF666666);
 	public static final Tile GRASS = new BasicTile(3, 3, 0, Colours.get(-1, 131, 141, -1), 0xFF00FF00);
 	public static final Tile WATER = new AnimatedTile(4, new int[][] { { 0, 5 }, { 1, 5 }, { 2, 5 }, { 1, 5 } }, Colours.get(-1, 004, 115, -1), 0xFF0000FF, 1000);
+	public static final Tile PORTAL = new PortalTile(5, 0, 1, Colours.get(-1, 323, 434, 535), 0xFF999999);
 
 	protected byte id;
 	protected boolean solid;
 	protected boolean emitter;
+	protected boolean portal;
 	private int levelColour;
 
 	public Tile(int id, boolean isSolid, boolean isEmitter, int colour) {
@@ -42,6 +44,10 @@ public abstract class Tile {
 
 	public boolean isEmitter() {
 		return emitter;
+	}
+	
+	public boolean isPortal(){
+		return portal;
 	}
 
 	public abstract void tick();
