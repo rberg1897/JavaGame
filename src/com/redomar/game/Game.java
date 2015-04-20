@@ -50,7 +50,7 @@ public class Game extends Canvas implements Runnable {
 	private static int map = 0;
 	private static int shirtCol;
 	private static int faceCol;
-	private static boolean[] alternateCols = new boolean[2];
+	private static boolean[] alternateCols = new boolean[3];
 	private static int fps;
 	private static int tps;
 	private static int steps;
@@ -152,15 +152,26 @@ public class Game extends Canvas implements Runnable {
 		if (alternateCols[0]) {
 			Game.setShirtCol(240);
 		}
-		if (!alternateCols[0]) {
+		else if (alternateCols[1]) {
 			Game.setShirtCol(111);
 		}
-		if (alternateCols[1]) {
+		
+		else if(alternateCols[2]){
+			Game.setShirtCol(999);
+		}
+		
+		if (alternateCols[0]) {
 			Game.setFaceCol(310);
 		}
-		if (!alternateCols[1]) {
+		else if (alternateCols[1]) {
 			Game.setFaceCol(543);
 		}
+		
+		else if (alternateCols[2])
+		{
+			Game.setFaceCol(750);
+		}
+		
 		setPlayer(new PlayerMP(level, 100, 100, input,
 				getJdata_UserName(), null, -1, shirtCol, faceCol));
 		level.addEntity(player);

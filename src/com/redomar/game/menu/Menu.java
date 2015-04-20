@@ -209,7 +209,7 @@ public class Menu implements Runnable {
 			}
 			Thread.sleep(125);
 			splash.setProgress(96, "Collecting Player Data");
-			Object[] options = { "African", "Caucasian" };
+			Object[] options = { "African", "Caucasian", "Undead" };
 			int n = JOptionPane.showOptionDialog(frame,
 					"Choose a race for the charater to be", "Choose a race",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
@@ -220,7 +220,7 @@ public class Menu implements Runnable {
 				Game.setAternateColsR(false);
 			}
 			Thread.sleep(250);
-			Object[] options1 = { "Orange", "Black" };
+			Object[] options1 = { "Orange", "Black", "Grey" };
 			int n1 = JOptionPane.showOptionDialog(frame,
 					"Which Colour do you want the shirt to be?",
 					"Choose a shirt Colour", JOptionPane.YES_NO_OPTION,
